@@ -1,37 +1,48 @@
 # OPM-Scraper
 
-**OPM-Scraper** is a Python script that periodically checks for new chapters of the *One Punch Man* manga from a JSON feed. It downloads the latest chapter's images, compresses them, bundles them into a PDF, and automatically sends the PDF to a Telegram channel or chat.
+**OPM-Scraper** is a Python bot that fetches the latest chapters of the *One Punch Man* manga from a public JSON feed. It downloads chapter images, compresses them, converts them into a PDF, and sends the PDF to a Telegram chat or channel. You can also interact with the bot using commands like `/list` and `/get`.
 
 ---
 
 ## Features
 
-- Fetches latest chapter metadata from a public JSON source.
-- Downloads and compresses chapter images using `Pillow`.
-- Converts the images into a PDF using `img2pdf`.
-- Sends the final PDF to a Telegram chat/channel using `python-telegram-bot`.
-- Automatically deletes the downloaded images after use.
-- Checks for updates every **15 minutes**.
+- Periodically checks for new *One Punch Man* chapters (every **30 minutes**).
+- Downloads and compresses images using `Pillow`.
+- Converts images into PDFs with `img2pdf`.
+- Sends new chapter PDFs to a configured Telegram chat/channel.
+- Interactive Telegram bot commands:
+  - `/list` chapters with inline pagination buttons.
+  - `/list sort=chapter` to sort chapters numerically.
+  - `/get <number>` to download a chapter from the most recent `/list`.
+  - `/help` command with nicely formatted usage instructions.
+- Inline buttons (`« Prev` / `Next »`) for chapter browsing.
+- Caches generated PDFs to avoid re-downloading chapters.
+- User-specific command context (each Telegram user sees their own `/list` state).
 
 ---
 
-## Folder Structure
+## Shoutout
+
+Special thanks to [@funkyhippo](https://gist.github.com/funkyhippo) for maintaining the public JSON feed that powers this bot:  
+👉 [`https://gist.githubusercontent.com/funkyhippo/1d40bd5dae11e03a6af20e5a9a030d81/raw`](https://gist.githubusercontent.com/funkyhippo/1d40bd5dae11e03a6af20e5a9a030d81/raw)
+
+## 📁 Folder Structure
 
 ```
 .
 ├── chapter_bot.log          # Log file for script activity
-├── last_seen_chapter.txt    # Tracks last downloaded chapter
+├── last_seen_chapter.txt    # Tracks last downloaded chapter ID
 ├── images/                  # Temporary folder for downloaded images
-├── opm_chapters/            # Output folder for generated PDFs
+├── opm_chapters/            # Folder for generated PDF files
 ├── .env                     # Environment variables (Telegram credentials)
-└── opm_scraper.py           # Main script
+└── opm_scraper.py           # Main bot script
 ```
 
 ---
 
-## Requirements
+## 📦 Requirements
 
-Install dependencies with:
+Install Python dependencies with:
 
 ```bash
 pip install -r requirements.txt
@@ -39,51 +50,97 @@ pip install -r requirements.txt
 
 ### `requirements.txt` content:
 ```text
-requests
-img2pdf
+python-telegram-bot
+requests 
+Pillow 
+img2pdf 
+beautifulsoup4
 python-dotenv
-pillow
-python-telegram-bot==20.0
+logging
+asyncio
 ```
-
-> Note: `python-telegram-bot` v20+ uses asyncio. This script is compatible.
 
 ---
 
-## Environment Variables
+## 🔐 Environment Setup
 
-Create a `.env` file in the root directory with the following contents:
+Create a `.env` file in your root directory with:
 
 ```env
 BOT_TOKEN=your_telegram_bot_token
 CHAT_ID=your_chat_or_channel_id
+JSON_URL=https://gist.githubusercontent.com/funkyhippo/1d40bd5dae11e03a6af20e5a9a030d81/raw
 ```
 
-- To get a bot token: use [@BotFather](https://t.me/BotFather) on Telegram.
-- To find your `CHAT_ID`, you can message your bot and inspect the `chat.id` using a script or a Telegram API bot.
+- Get a `BOT_TOKEN` via [@BotFather](https://t.me/BotFather).
+- Get your `CHAT_ID` by messaging your bot and inspecting `update.message.chat.id`.
 
 ---
 
 ## Usage
 
-Run the script:
+Start the bot with:
 
 ```bash
 python opm_scraper.py
 ```
 
-The script will run indefinitely, checking for new chapters every 15 minutes (900 seconds). When a new chapter is found:
-1. Images are downloaded and compressed.
-2. A PDF is created.
-3. The PDF is sent to the configured Telegram destination.
-4. Images are deleted after conversion.
+The script will:
+
+1. Check for new chapters every 15 minutes.
+2. If a new chapter is found:
+   - Images are downloaded and compressed.
+   - A PDF is generated and cached.
+   - The PDF is sent via Telegram.
+   - Temporary images are deleted.
 
 ---
 
-## Telegram Bot Docs
+## Telegram Commands
 
-This script uses [`python-telegram-bot`](https://pytba.readthedocs.io/en/latest/) v20+. For advanced usage, see their official documentation.
+```text
+/list
+```
+Show the latest chapters (default: sorted by `chapter`).
+
+```text
+/list sort=updated
+```
+Sort chapters numerically by chapter number (descending).
+
+```text
+/get <number>
+```
+Download the chapter from the most recently listed page (e.g., `/get 1` for the first).
+
+```text
+/help
+```
+Displays a list of available commands and how to use them.
+
+### Pagination
+After running `/list`, use the inline buttons:
+- `« Prev` / `Next »` to flip pages.
+- Sorting mode persists across page flips.
+
+---
+
+## Tech Stack
+
+- `python-telegram-bot` — Telegram Bot API wrapper (v20+)
+- `img2pdf` — Lightweight PDF generation from images
+- `Pillow` — Image compression and manipulation
+- `dotenv` — Load environment variables from `.env`
+
+---
+
+## Resources
+
+- [python-telegram-bot Docs](https://docs.python-telegram-bot.org/)
+- [Telegram Bot API Reference](https://core.telegram.org/bots/api)
+
+---
 
 ## Disclaimer
 
-This script is for **educational purposes only**. All content is sourced from publicly available JSON feeds. Please respect the rights of the content creators and publishers.
+This project is intended for **educational purposes only**. It fetches data from publicly available sources. Please respect the rights of manga creators and publishers.

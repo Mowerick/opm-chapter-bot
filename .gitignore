@@ -1,7 +1,7 @@
 venv
 .env
-chapter_bot.log
-opm_chapters/
-images/
+src/chapter_bot.log
+src/opm_chapters/
+src/images/
 .idea
-last_seen_chapter.txt
+src/last_seen_chapter.txt
