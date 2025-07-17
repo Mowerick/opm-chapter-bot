@@ -12,6 +12,10 @@ async def handle_pagination(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
+    if context.user_data.get("list_owner_id") != query.from_user.id:
+        await query.answer("This list belongs to someone else.", show_alert=True)
+        return
+
     try:
         _, page_str, sort_mode = query.data.split(":")
         page = int(page_str)

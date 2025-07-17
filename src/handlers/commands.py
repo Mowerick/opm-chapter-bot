@@ -81,6 +81,7 @@ async def list_chapters(update: Update, context: ContextTypes.DEFAULT_TYPE, page
 
     context.user_data["chapter_refs"] = page_chapters
     context.user_data["current_page"] = page
+    context.user_data["list_owner_id"] = update.effective_user.id
 
     message = f"<b>📚 Chapters (Page {page}/{total_pages})</b>\n\n"
     for idx, (chap_id, chap_data) in enumerate(page_chapters):
