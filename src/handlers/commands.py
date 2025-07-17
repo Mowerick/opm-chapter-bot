@@ -92,7 +92,7 @@ async def list_chapters(update: Update, context: ContextTypes.DEFAULT_TYPE, page
         message += f"<b>{idx + 1}.</b> {title} <i>(⏱️ {formatted_time})</i>\n"
 
     message += "\nUse <code>/get &lt;number&gt;</code> to download a chapter."
-    message += f"\n\n<code>/list sort=chapter</code> or <code>/list sort=updated</code>"
+    message += f"\n\n<code>/list sort=chapter</code> or <code>/list sort=release</code>"
 
     # --- Inline buttons ---
     buttons = []
