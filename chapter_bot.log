@@ -1,2 +1,0 @@
-2025-07-17 18:19:58,970 [ERROR] Task was destroyed but it is pending!
-task: <Task pending name='Task-7' coro=<Application.__create_task_callback() running at /home/oliver/projects/opm-scraper/venv/lib/python3.11/site-packages/telegram/ext/_application.py:1175> wait_for=<Future pending cb=[Task.task_wakeup()]>>
