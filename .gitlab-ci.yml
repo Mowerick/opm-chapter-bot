@@ -21,7 +21,7 @@ deploy:
     - ssh-keyscan -H $DEPLOY_HOST >> ~/.ssh/known_hosts
 
   script:
-    - scp -r src/ $DEPLOY_USER@$DEPLOY_HOST:/scripts/opm-scraper/
+    - scp -r -v src requirements.txt $DEPLOY_USER@$DEPLOY_HOST:/scripts/opm-scraper/
     - ssh $DEPLOY_USER@$DEPLOY_HOST "
         cd /scripts/opm-scraper &&
         python3 -m venv opmscrapervenv &&
