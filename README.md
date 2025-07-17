@@ -24,23 +24,12 @@
 ## Shoutout
 
 Special thanks to [@funkyhippo](https://gist.github.com/funkyhippo) for maintaining the public JSON feed that powers this bot:  
-👉 [`https://gist.githubusercontent.com/funkyhippo/1d40bd5dae11e03a6af20e5a9a030d81/raw`](https://gist.githubusercontent.com/funkyhippo/1d40bd5dae11e03a6af20e5a9a030d81/raw)
+[`https://gist.githubusercontent.com/funkyhippo/1d40bd5dae11e03a6af20e5a9a030d81/raw`](https://gist.githubusercontent.com/funkyhippo/1d40bd5dae11e03a6af20e5a9a030d81/raw)
 
-## 📁 Folder Structure
-
-```
-.
-├── chapter_bot.log          # Log file for script activity
-├── last_seen_chapter.txt    # Tracks last downloaded chapter ID
-├── images/                  # Temporary folder for downloaded images
-├── opm_chapters/            # Folder for generated PDF files
-├── .env                     # Environment variables (Telegram credentials)
-└── opm_scraper.py           # Main bot script
-```
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 Install Python dependencies with:
 
@@ -62,7 +51,7 @@ asyncio
 
 ---
 
-## 🔐 Environment Setup
+## Environment Setup
 
 Create a `.env` file in your root directory with:
 
