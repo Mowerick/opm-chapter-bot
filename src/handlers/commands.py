@@ -61,12 +61,10 @@ async def list_chapters(update: Update, context: ContextTypes.DEFAULT_TYPE, page
 
     chapters = data.get("chapters", {})
 
-    if sort_mode == "chapter":
-        # Sort by chapter key (as int)
-        all_chapters = sorted(chapters.items(), key=lambda x: float(x[0]), reverse=True)
-    else:
-        # Default: sort by last_updated timestamp
+    if sort_mode == "release":
         all_chapters = sorted(chapters.items(), key=lambda x: x[1].get("last_updated", 0), reverse=True)
+    else:
+        all_chapters = sorted(chapters.items(), key=lambda x: float(x[0]), reverse=True)
 
     total_pages = (len(all_chapters) + CHAPTERS_PER_PAGE - 1) // CHAPTERS_PER_PAGE
     page = max(1, min(page, total_pages))
@@ -110,11 +108,11 @@ async def list_chapters(update: Update, context: ContextTypes.DEFAULT_TYPE, page
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "<b>🤖 Available Commands</b>\n\n"
-        "<b>/list</b> — Show the latest chapters (sorted by last updated)\n"
+        "<b>/list</b> — Show the latest chapters (sorted by chapter number)\n"
         "Usage: <code>/list</code>\n\n"
-        "<b>/list sort=chapter</b> — Show chapters sorted by chapter number\n"
-        "Usage: <code>/list sort=chapter</code>\n\n"
-        "<b>/get &lt;number&gt;</b> — Download a chapter from the last listed page\n"
+        "<b>/list sort=chapter</b> — Show chapters sorted by release date\n"
+        "Usage: <code>/list sort=release</code>\n\n"
+        f"<b>/get &lt;list_number&gt;</b> — Download a chapter from the last listed page (between 1-{CHAPTERS_PER_PAGE})\n"
         "Example: <code>/get 1</code> (gets the first chapter from the current list)\n\n"
         "<b>🔄 Pagination:</b>\n"
         "Use the inline buttons <b>« Prev</b> and <b>Next »</b> to scroll through chapters.\n"

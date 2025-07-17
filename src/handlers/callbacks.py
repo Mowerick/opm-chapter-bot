@@ -26,10 +26,10 @@ async def handle_pagination(update: Update, context: ContextTypes.DEFAULT_TYPE):
         chapters = data.get("chapters", {})
 
         # Sort chapters based on selected mode
-        if sort_mode == "chapter":
-            all_chapters = sorted(chapters.items(), key=lambda x: float(x[0]), reverse=True)
-        else:
+        if sort_mode == "release":
             all_chapters = sorted(chapters.items(), key=lambda x: x[1].get("last_updated", 0), reverse=True)
+        else:
+            all_chapters = sorted(chapters.items(), key=lambda x: float(x[0]), reverse=True)
 
         total_pages = (len(all_chapters) + CHAPTERS_PER_PAGE - 1) // CHAPTERS_PER_PAGE
         page = max(1, min(page, total_pages))

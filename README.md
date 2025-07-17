@@ -13,7 +13,7 @@
 - Interactive Telegram bot commands:
   - `/list` chapters with inline pagination buttons.
   - `/list sort=chapter` to sort chapters numerically.
-  - `/get <number>` to download a chapter from the most recent `/list`.
+  - `/get <list_number>` to download a chapter from the most recent `/list`.
   - `/help` command with nicely formatted usage instructions.
 - Inline buttons (`« Prev` / `Next »`) for chapter browsing.
 - Caches generated PDFs to avoid re-downloading chapters.
@@ -98,7 +98,7 @@ Show the latest chapters (default: sorted by `chapter`).
 Sort chapters numerically by chapter number (descending).
 
 ```text
-/get <number>
+/get <list_number>
 ```
 Download the chapter from the most recently listed page (e.g., `/get 1` for the first).
 
