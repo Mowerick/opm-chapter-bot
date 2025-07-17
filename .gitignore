@@ -1,0 +1,7 @@
+venv
+.env
+chapter_bot.log
+opm_chapters/
+images/
+.idea
+last_seen_chapter.txt
