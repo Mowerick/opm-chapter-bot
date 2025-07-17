@@ -71,7 +71,7 @@ JSON_URL=https://gist.githubusercontent.com/funkyhippo/1d40bd5dae11e03a6af20e5a9
 Start the bot with:
 
 ```bash
-python opm_scraper.py
+PYTHONPATH=/scripts/opm-scraper/src exec /scripts/opm-scraper/opmscrapervenv/bin/python3 -m bot
 ```
 
 The script will:
@@ -93,9 +93,9 @@ The script will:
 Show the latest chapters (default: sorted by `chapter`).
 
 ```text
-/list sort=updated
+/list sort=release
 ```
-Sort chapters numerically by chapter number (descending).
+Sort chapters by release date (descending).
 
 ```text
 /get <list_number>
