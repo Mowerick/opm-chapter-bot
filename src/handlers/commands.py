@@ -51,7 +51,6 @@ async def get_chapter(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def list_chapters(update: Update, context: ContextTypes.DEFAULT_TYPE, page=1):
     data = get_json()
 
-    # --- Sorting preference ---
     sort_mode = "chapter"
     for arg in context.args:
         if arg.startswith("sort="):
